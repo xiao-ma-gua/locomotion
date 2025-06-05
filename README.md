@@ -20,6 +20,12 @@ Launch CarlaUE4.exe and run these script:
 python Carla_Pedestrian_PPO.py
 ```
 
+Run with GUI:
+```shell
+python Carla_Pedestrian_System_GUI.py
+```
+Select `Initialize Environment`, make sure the start and end points are in the csv, then click `Start Training`.
+
 
 
 
