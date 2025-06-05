@@ -5,6 +5,7 @@ import random
 client = carla.Client("localhost", 2000)
 client.set_timeout(10.0)
 world = client.get_world()
+# 如果默认启动的场景是Town10（特别是编辑器启动场景时），则切换场景需要一定的时间，后面连接可能会出现超时的问题
 world = client.load_world('Town05')
 pedestrain_blueprints = world.get_blueprint_library().filter("walker.pedestrian.0001")
 # 设置行人起点
