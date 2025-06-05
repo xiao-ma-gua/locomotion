@@ -12,13 +12,15 @@ import threading
 import torch
 import gc
 from heapq import nsmallest
-from PyQt6.QtWidgets import (
+
+# 兼容 Python 3.7（该版本不支持PyQt6）
+from PyQt5.QtWidgets import (
     QApplication, QMainWindow, QWidget, QLabel, QVBoxLayout,
     QPushButton, QTextEdit, QHBoxLayout, QGroupBox, QProgressBar,
     QSpinBox, QDoubleSpinBox, QFileDialog, QCheckBox, QMessageBox
 )
-from PyQt6.QtCore import Qt, QThread, pyqtSignal, QMutex
-from PyQt6.QtGui import QFont
+from PyQt5.QtCore import Qt, QThread, pyqtSignal, QMutex
+from PyQt5.QtGui import QFont
 from gymnasium import spaces
 from stable_baselines3 import PPO
 from stable_baselines3.common.vec_env import DummyVecEnv
@@ -32,6 +34,7 @@ ACTION_DICT = {
     4: (0.0, 2.0)  # 奔跑
 }
 
+
 # ======================== 环境初始化模块 ========================
 def reset_environment(env):
     try:
@@ -39,6 +42,7 @@ def reset_environment(env):
         env.reset()
     except Exception as e:
         print(f"重置环境错误: {str(e)}")
+
 
 class EnhancedPedestrianEnv(gym.Env):
     def __init__(self, start_index=0, end_index=1, target_location=None, enable_camera_follow=True, log_callback=None):
@@ -1283,6 +1287,7 @@ class CarlaPedestrianGUI(QMainWindow):
     def closeEvent(self, event):
         self.stop_all()
         event.accept()
+
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
