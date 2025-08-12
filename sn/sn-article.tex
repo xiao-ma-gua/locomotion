@@ -107,7 +107,7 @@
 
 % Geometric constraints on human brain function
 % Structure constraints human brain function and artificial neural network
-\title[Article Title]{Geometric Constraints Artificial Neural Network Function}
+\title[Article Title]{Whole-body physics simulation of human locomotion}
 % Structure Bias in Artificial Neural Network
 
 %%=============================================================%%
@@ -138,15 +138,17 @@
 %%==================================%%
 
 \abstract{
-	The neuroanatomy of the brain necessarily constrains its function, but precisely how remains unclear.
-	The classical and dominant paradigm in neuroscience is that neuronal dynamics are driven by interactions between discrete, functionally specialized cell populations connected by a complex array of axonal fibres\cite{collura1996neocortical,bullmore2009complex,yuste2015neuron}.
-	However, predictions from neural field theory, an established mathematical framework for modelling large-scale brain activity\cite{wright1995simulation,jirsa1996field,robinson1997propagation}, suggest that the geometry of the brain may represent a more fundamental constraint on dynamics than complex interregional connectivity\cite{robinson2016eigenmodes,gabay2017cortical}. 
-	Here, we confirm these theoretical predictions by analysing human magnetic resonance imaging data acquired under spontaneous and diverse task-evoked conditions. 
-	Specifically, we show that cortical and subcortical activity can be parsimoniously understood as resulting from excitations of fundamental, resonant modes of the brain’s geometry (that is, its shape) rather than from modes of complex interregional connectivity, as classically assumed. 
-	We then use these geometric modes to show that task-evoked activations across over 10,000 brain maps are not confined to focal area, as widely believed, but instead excite brain-wide modes with wavelengths spanning over 60 mm.
-	Finally, we confirm predictions that the close link between geometry and function is explained by a dominant role for wave-like activity, showing that wave dynamics can reproduce numerous canonical spatiotemporal properties of spontaneous and evoked recordings. 
-	% 几何起主导作用（类似基因），连接起后天学习的作用
-	Our findings challenge prevailing views and identify a previously underappreciated role of geometry in shaping function, as predicted by a unifying and physically principled model of brain-wide dynamics.
+	% 出发点：身体 影响 神经系统生成行为
+	The body of an human infuences how its nervous system generates behaviour\cite{dickinson2000animals}. 
+	% 建模的重要性：感觉运动需要
+	Accurately modelling the neural control of sensorimotor behaviour requires an anatomically detailed biomechanical representation of the body. 
+	Here we introduce a whole-body model of the human in a physics simulator. 
+	Designed as a general-purpose framework, our model enables the simulation of diverse movement behaviours, including both walking and running locomotion. 
+	We validate its versatility by replicating realistic walking and running behaviours. 
+	To support these behaviours, we develop phenomenological models for fuid and adhesion forces. 
+	Using data-driven, end-to-end reinforcement learning\cite{peng2018deepmimic,hasenclever2020comic}, we train neural network controllers capable of generating naturalistic locomotion\cite{muijres2014flies,muijres2015body,deangelis2019manifold} along complex trajectories in response to high-level steering commands. 
+	Furthermore, we show the use of visual sensors and hierarchical motor control\cite{merel2019hierarchical}, training a high-level controller to reuse a pretrained low-level fight controller to perform visually guided walking tasks. 
+	Our model serves as an open-source platform for studying the neural control of sensorimotor behaviour in an embodied context.
 }
 
 %%================================%%
@@ -161,7 +163,7 @@
 % 
 % \textbf{Conclusion:} The abstract serves both as a general introduction to the topic and as a brief, non-technical summary of the main results and their implications. The abstract must not include subheadings (unless expressly permitted in the journal's Instructions to Authors), equations or citations. As a guide the abstract should not exceed 200 words. Most journals do not set a hard limit however authors are advised to check the author instructions for the journal they are submitting to.}
 
-\keywords{Geometric Constraints, Cortex Function, Artificial Neural Network, Human Brain}
+%\keywords{Whole-body physics simulation of human locomotion}
 
 %%\pacs[JEL Classification]{D8, H51}
 
@@ -172,56 +174,36 @@
 % 识别人脸的人工神经网络如何用波动力学解释
 \section{Introduction}\label{sec1}
 
-% 举例说明
-The dynamics of many natural systems are fundamentally constrained by their underlying structure. 
-% 脸的形状影响了人的美丑（只有空间没有时间属性）
-For instance, the shape of a drum influences its acoustic properties, the morphology of a river bed shapes underwater currents and the geometry of a protein determines the molecules with which it can interact\cite{yang2018geometric}. 
-The nervous system is no exception, with the rich and complex spatiotemporal dynamics of anatomically distributed neuronal populations being supported by their intricate web of axonal interconnectivity\cite{nowack1995neocortical,braitenberg2013cortex}. 
-% 提出问题
-Several studies have shown correlations between various properties of brain connectivity and activity\cite{damoiseaux2009greater}, but precisely how spatiotemporal patterns of neural dynamics are constrained by a relatively stable neuroanatomical scaffold remains unclear.
-
-In diverse areas of physics and engineering, structural constraints on system dynamics can be understood via the system’s eigenmodes, which are fundamental spatial patterns corresponding to the natural, resonant modes of the system\cite{melrose1991electromagnetic}. 
-In the linear regime, such as brain activity under normal (that is, non-seizure-like) conditions\cite{nozari2020brain}, eigenmodes (hereafter also referred to as modes) offer a particularly powerful and rigorous formalism for linking brain anatomy with the physical processes that shape activity. 
-Through this lens, spatiotemporal patterns of neuronal dynamics emerge from excitations of the brain’s structural eigenmodes, much like the harmonics of a plucked violin string arise from vibrations of its own resonant modes.
+% 大脑、身体、环境 -> (感觉运行循环) -> 行为
+Human behaviour emerges from sensorimotor feedback loops that integrate signals from the brain, body and environment\cite{dickinson2000animals,peng2018deepmimic,hasenclever2020comic,muijres2014flies,muijres2015body,deangelis2019manifold,merel2019hierarchical,todorov2012mujoco}.
+% 神经运动命令 -> （身体） -> 移动  -> （感觉反馈）
+The body determines how neural motor commands translate into movement and how sensory feedback is generated in response. 
+Therefore, a detailed biomechanical understanding of the body is crucial for modelling the neural control of movement.
+Here we introduce a physics-based simulation framwork for an anatomically detailed model of the human Dong, designed to supported the modelling of diverse sensorimotor behaviours.
+% 通过 RL 来演示行走和跑步
+We validate our model by demonstrating realistic locomotion—both walking and running—using reinforcement learning (RL). 
+This general-purpose simulation provides a platform for future studies of brain–body interactions across a broad range of human behaviours.
 
 
-% 物质、几何（外形）、解剖（区域划分）
-Critically, just as the resonant frequencies of a violin string are determined by its length, density and tension, the eigenmodes of the brain are determined by its structural—physical, geometric and anatomical—properties. 
-Do any of these specific structural properties make a dominant contribution to dynamics? 
-Here we test two influential and competing theories that make different predictions about which key elements of brain structure shape function.
+% 基于的其他相关工作
+% 蠕虫、水螅
+Our work follows previous physics-based models of the worm\cite{boyle2012gait}, hydra\cite{wang2023complete}, rodent\cite{merel2019deep} and fruit fly\cite{reiser2004vision,dickson2008integrative,lobato2022neuromechfly,wang2023neuromechfly,melis2024machine}. 
+The Grand Unified Fly\cite{dickson2008integrative} pioneered sensorimotor closed-loop visually guided flight using a simplified body model and hand-designed controller. 
+More recent work has revealed the basis of muscle actuation of the wing hinge\cite{melis2024machine}. 
+In parallel, NeuroMechFly\cite{lobato2022neuromechfly,wang2023neuromechfly} introduced an anatomically detailed fruit fly model capable of walking and grooming, pairing a heuristically designed low-level walking controller with a learnt high-level controller to generate sensory-guided behaviours\cite{wang2023neuromechfly}.
 
 
-% （细胞之间的）联系（即解剖、解剖连接） -> 神经动态
-One classical perspective, which represents the dominant paradigm in neuroscience, has it roots in Ramony Cajal's neuro doctrine\cite{jones1999golgi}, Brodmann’s cytoarchitectonics15 and over a century of work localizing functions to specific brain regions\cite{broca1861remarques}. 
-According to this view, spatiotemporal patterns of neural dynamics arise from interactions between discrete, functionally specialized cell populations connected by a topologically complex array of short- and long-range axonal connections\cite{bullmore2009complex,yuste2015neuron}. 
-In humans, these connections can be estimated at macroscopic scales by diffusion magnetic resonance imaging (dMRI) to yield a structural connectivity matrix, called a connectome\cite{fornito2016fundamentals}. 
-This approach has been used extensively to understand brain organization and dynamics\cite{bullmore2009complex,fornito2016fundamentals,breakspear2017dynamic}, and recent work has proposed that eigenmodes derived from such a discrete connectome—referred to here as connectome eigenmodes—can be used to reconstruct the spatial patterns of canonical functional networks of the human cortex mapped with functional MRI (fMRI)\cite{atasoy2016human,preti2019decoupling}.
+% 自己的建模方法
+Our work unifies running and walking in a single physics-based model, enhancing realism in body mechanics, physics interactions and control. 
+We developed an anatomically detailed fly body model in the open-source PhysX physics engine, incorporating high-resolution imaging to reconstruct a male Dong (Fig.~\ref{fig:fig_1}). 
+To accurately simulate both walking and running, we introduced a computationally efficient phenomenological fluid dynamics model to approximate aerodynamic forces from wing flapping and adhesion actuators to model foot–surface interactions.
 
 
-% 连接的缺点：依赖于一个抽象的先验表示
-% 提出基于神经场的动力学
-One limitation of this discrete connectome-based view is that it relies on an abstract representation of brain anatomy that does not directly account for its physical properties and spatial embedding (that is, geometry and topology). 
-These characteristics are explicitly incorporated into a broad class of neural field theories (NFTs)\cite{wright1995simulation,jirsa1996field,robinson1997propagation} that describe mean-field neural dynamics on spatial scales above 0.5 mm (Supplementary Information~\ref{sec:NFT}). 
-% 连续的思维（而不是原来细胞连接的离散思维）
-One physiologically constrained form of NFT has unified a diverse range of empirical phenomena\cite{robinson1997propagation,robinson2005multiscale} by treating cortical activity as a superposition of travelling waves propagating through a physically continuous sheet of neural tissue. 
-In this theory, neural interactions between different cortical locations are approximated by a homogeneous spatial kernel that declines roughly exponentially with distance\cite{robinson2019physical}, in line with experimental evidence that the organization of the nervous systems of numerous species is universally governed by an exponential distance rule (EDR) for connectivity\cite{braitenberg2013cortex,wang2016brain,roberts2017consistency}.
-
-
-% 波动力学的好处
-Given wave-like dynamics and EDR-like connectivity, a key prediction of NFT is that the intrinsic geometry of the brain physically shapes and imposes boundary conditions on emergent dynamics\cite{robinson2016eigenmodes,gabay2017cortical,gabay2018dynamics}. 
-A remarkable corollary of this view is that, if we prioritize spatial and physical constraints on brain anatomy, we only need to consider the shape of the brain, and not its full array of topologically complex axonal interconnectivity, to understand spatially patterned activity. 
-More formally, the theory predicts that eigenmodes derived from brain geometry—hereafter referred to as geometric eigenmodes—represent a more fundamental anatomical constraint on dynamics than the connectome\cite{robinson2016eigenmodes,gabay2017cortical,gabay2018dynamics}. 
-This view stands in stark contrast to the classical view that complex patterns of interregional anatomical connectivity shape brain activity\cite{honey2007network}.
-
-
-% 所做的实验和结论
-Here we test these competing views of the brain with the aim of identifying the principal structural constraints on human brain dynamics. 
-% 实验
-In line with theoretical predictions from NFT, we show that diverse experimental fMRI data from spontaneous and task-evoked recordings in the human neocortex can be explained more parsimoniously by eigenmodes derived from cortical geometry (geometric eigenmodes) than by those obtained from measures of brain connectivity (connectome eigenmodes). 
-% 结论
-We further confirm that stimulus-evoked activity is dominated by excitations of geometric eigenmodes with long spatial wavelengths, challenging classical views that such activity is localized to focal, spatially isolated clusters. 
-To directly link these structural constraints to the physical processes driving brain dynamics, we use a generative model to show how wave dynamics unfolding on the geometry of the cortex can explain diverse features of functional brain organization. 
-Finally, we show that the close relationship between geometry and function captured by eigenmodes extends to non-neocortical structures, indicating that this link is a universal property of brain organization.
+Using high-speed kinematic tracking\cite{branson2009high,pereira2022sleap}, we trained closed-loop RL controllers capable of replicating naturalistic running movements. 
+These controllers, trained for both walking (Fig.~\ref{fig:fig_2}) and running (Fig.~\ref{fig:fig_3}), operate using only high-level steering commands. 
+Finally, we demonstrate the reuse of a pretrained low-level flight controller for vision-guided flight tasks (Fig.~\ref{fig:fig_4}). 
+% 其他的动作：搬箱子
+Through inverse kinematics, we further show that our model supports a broad behavioural repertoire beyond locomotion, including lifting a box.
 
 
 
@@ -231,40 +213,44 @@ Finally, we show that the close relationship between geometry and function captu
 
 \section{Results}\label{sec3}
 
+		
 
-
-\subsection{The emergence of selectivity to various objects in untrained DNNs}
+\subsection{Body model geometry}
 
 \begin{figure}[!htb]
 	\centering
-	\includegraphics[width=1.0\textwidth]{fig/face_5.pdf}
+	\includegraphics[width=1.0\textwidth]{fig/fig_1.pdf}
 	\caption{
-		\textbf{ImageNet category-selective units in untrained networks.
+		\textbf{Constructing the male human body model.
 		}
-		(\textbf{a}) The responses of units in untrained networks to the images of 1,000 ImageNet~\cite{russakovsky2015imagenet} classes and to face images (VGGFace2)~\cite{cao2018vggface2}.
-		% 杂色菊
-		(\textbf{b}) Average tuning curve of gazania selective units.
-		(Inset) Responses of gazania-selective units to the original gazania ($ n = 100 $), the scrambled gazania ($ n = 100 $) and texform gazania images ($ n = 100 $).
-		(\textbf{c}) The number of selective units for 39 classes in which selective units are observed.
-		The error bar indicates the standard deviation of 50 random networks.
-		%	
-		(\textbf{d}) Sample preferred feature images achieved by reverse-correlation analysis and stimulus images (inset).
-		% 
-		(\textbf{e}) Visualization of the PCA (principal component analysis)~\cite{wold1987principal} analysis results (only two principal components (PC) are shown) using the Conv5 unit response to each class in untrained networks.
-		The analysis was performed using 3,999 principal components, and the top $140 \pm 32$ components contained $ 75\% $ of the variance.
-		% 轮廓系数(Silhouette Coefficient),是聚类效果好坏的一种评价方式。
-		(\textbf{f}) The silhouette index~\cite{kaufman2009finding} of the Conv5 unit responses was measured using all principal components to estimate the consistency of data clustering.
-		Each dot indicates the mean and the error bar indicates the standard deviation of 50 simulations of randomly initialized networks.
-		% 
-		(\textbf{g}) Correlation between the silhouette index and the number of selective units observed (Pearson correlation).
-		Each dot indicates the mean and the error bar indicates the standard deviation of 50 random networks.
-		%
-		All box plots indicate the inter-quartile range (IQR between Q1 and Q3) of the dataset, the horizontal line depicts the median and the whiskers correspond to the rest of the distribution (Q1-1.5*IQR, Q3+1.5*IQR).
-		For copyright reasons, the images in panels (\textbf{a}) and (\textbf{d}) are not the actual images used in the experiments.
-		The original images are replaced with images with similar contents for display purposes.
-		The original images are available at [\url{https://www.image-net.org/download}, \url{https://arxiv.org/abs/1710.08092}].
-		Images shown are available at [\url{https:/www.shutterstock.com}].
-	} \label{fig:image_net}
+		\textbf{(a)} Compilation of six parts representing a single human. 
+		% 带腹部的胸部
+		Maximum intensity projections of confocal stacks showing head, thorax with abdomen, wings and legs. 
+		Scale bar, 1 mm.
+		% 共角的体积 confocal volume
+		% 低多边形 网格
+		% 高多边形 网格
+		% 关节
+		% femur: 大腿骨
+		% tibia: 胫节
+		% tarsal: 跗骨
+		\textbf{(b)} Left, a partial projection of the midleg confocal volume with the joints between the femur, tibia and tarsal segments indicated. 
+		Middle, a 3D mesh extracted from the volume. 
+		Right, a low-polygon leg model. 
+		Scale bar, 0.2 mm.
+		% 被分解的
+		\textbf{(c)} An exploded low-polygon human model (around 20,000 faces) showing all body segments. 
+		Scale bar, 1 mm.
+		\textbf{(d)} The geometric human model assembled in Blender.
+		\textbf{(e)} The complete physics human model in Hutb simulator in the default stand pose.
+		\textbf{(f)} Human model in a running pose with retracted legs.
+		% 透明视图
+		% DoFs: 自由度
+		\textbf{(g)} DoFs. Translucent bottom view with light-blue arrows indicating hinge joint axes pointing in the direction of positive rotation. 
+		% 三个铰合形成 球形关节
+		Groups of three hinge joints effectively form ball joints. 
+		Cube: 6-DoF free joint required for free CoM motion in the simulator and is not a part of human's internal DoFs.
+	} \label{fig:fig_1}
 \end{figure}
 
 % 面部
@@ -318,47 +304,8 @@ Thus, the observed face-selectivity may not be a special case of tuning,
 whereas selectivity to other visual objects can also arise in random networks simply due to the relatively simple configuration of the corresponding geometric components.
 
 
-% 在未训练的DNN中出现面部选择单元和音乐选择单元
-\subsubsection{The emergence of face-selectivity and music-selective units in trained DNNs}
 
 
-\begin{figure}[!htb]
-	\centering
-	\includegraphics[width=0.9\textwidth]{fig/face_1.pdf}
-	\caption{
-		\textbf{Spontaneous emergence of face-selectivity in untrained networks.
-		}
-		\textbf{(a)} Face-select neurons and their response observed in monkey experiments.
-		The response was normalized to the maximum value as 1.
-		The face image shown is not the original stimulus set due to copyright.
-		The image shown is available at \url{https://www.shutterstock.com} (see Methods for details).
-		\textbf{(b)} the architecture of the untrained AlexNet~\cite{krizhevsky2012imagenet}.
-		The untrained AlexNet was devised using a random initialization method~\cite{lecun2002efficient}, for which the values in each weight kernel were randomly sampled from a Gaussian distribution.
-		\textbf{(c)} A stimulus set was designed to control the degree of intra-class image similarity.
-		Stimulus images were selected and modified from a publicly available dataset that has been used in human fMRI study~\cite{stigliani2015temporal}.
-		The original images are available at [\url{http://vpnl.stanford.edu/fLoc/}].
-		\textbf{(d)} Responses of individual face-selective units in the untrained AlexNet ($ P < 0.001 $, two-sided rank-sum test, uncorrected).
-		\textbf{(e)} The number of face-selective units in each convolutional layer in untrained networks ($ n=100 $).
-		% 面部选择单元的面部选择指数
-		\textbf{(f)} Face-selectivity index (FSI) of face-selective neurons in the primate IT~\cite{freiwald2010functional} ($ n=158 $), and face units in each convolutional layer in the untrained AlexNet.
-		The control FSI was measured according to the shuffled responses of face-selective units in the untrained network.
-		% 和打乱的人脸响应进行对比
-		\textbf{(g)} (Left) Examples of texform and scrambled face images.
-		(Right) Responses of face-selective units to the original face ($ n = 200 $), the scrambled face ($ n=200 $) and texform face images ($ n = 100 $).
-		\textbf{(h)} Responses of face-selective units to four different sets of novel face images: 
-		(1) 50 face images from our original dataset (images not used for finding face-selective units),
-		(2) 16 images used in Tsao et al.~\cite{tsao2006cortical,freiwald2010functional},
-		(3) 50 images used in Cao et al.~\cite{cao2018vggface2} in color and gray scale,
-		and (4) 50 face images artificially generated by the FaceGen simulator (singular inversions) in color and gray scale. % Singular Inversions (软件公司)
-		\textbf{(i)} The number of face-selective units, where the weight variation was changed from 5 to 200\% of the original value using two different initialization methods with Gaussian (red) and a uniform distribution (blue).
-		\textbf{(j)} FSI of face-selective units across changes in the weight.
-		Dashed lines indicate the mean and shaded areas indicate the standard deviation of 30 random networks.
-		% 针对所有图进行说明
-		All box plots indicate the inter-quartile range (IQR between Q1 and Q3) of the dataset,
-		% 第三四分位数与第一四分位数的差距又称四分位距（InterQuartile Range, IQR）
-		the horizontal line depicts the median and the whiskers correspond to the rest of the distribution (Q1-1.5*IQR, Q3+1.5*IQR).
-	} \label{fig:emergence}
-\end{figure}
 
 
 
@@ -428,11 +375,11 @@ This implies that the emergence of face-selective units in untrained networks is
 
 % 激活
 % 在未训练的网络中有 类别 选择性偏好特征
-\subsection{Preferred feature of category-selective units in an untrained network} \label{sec:preferred}
+\subsection{Modelling body physics} \label{sec:preferred}
 
 \begin{figure}[!htb]
 	\centering
-	\includegraphics[width=0.9\textwidth]{fig/face_2.pdf}
+	\includegraphics[width=0.9\textwidth]{fig/fig_2.pdf}
 	\caption{
 		\textbf{Preferred feature images of face-selective units in untrained networks.
 		}
@@ -456,7 +403,7 @@ This implies that the emergence of face-selective units in untrained networks is
 		the horizontal line depicts the median and the whiskers correspond to the rest of the distribution (Q1-1.5*IQR, Q3+1.5*IQR).
 		The face images shown in panels (\textbf{d})-(\textbf{f}) are selected examples from the publicly available dataset~\cite{stigliani2015temporal}.
 		The original images are available at [\url{http://vpnl.stanford.edu/fLoc}].
-	} \label{fig:preferred}
+	} \label{fig:fig_2}
 \end{figure}
 
 
@@ -525,14 +472,14 @@ our result may inspire insight into how innate invariance can arise in infant an
 
 
 % 几何模式限制神经网络激活
-\subsection{Geometric modes constrain artificial neural network activity}\label{subsec2}
+\subsection{Modelling body–environment interactions}\label{subsec2}
 
 % 全局的波传到人脸识别区出现的模式响应 vs 人脸识别模式
 % 人脸识别区域几何模式（外形）来重建 人脸识别区域 的激活
 % 使用人脑的几何特征模式预测人工神经网络的激活
 \begin{figure}[!htb]
 	\centering
-	\includegraphics[width=0.9\textwidth]{fig/fig_1.pdf}
+	\includegraphics[width=0.9\textwidth]{fig/fig_3.pdf}
 	\caption{\textbf{Reconstruction of artificial neural network activity with geometric eigenmodes.}
 	\textbf{a}, Geometric eigenmodes are derived from the cortical surface mesh by solving the eigenvalue problem,$ \Delta \psi = -\lambda \psi $ (equation (\ref{eq:1})). 
 	The modes $ \psi_1, \psi_2, \psi_3, ... \psi_N $ are ordered from low to high spatial frequency (long to short spatial wavelengths). 
@@ -546,7 +493,7 @@ our result may inspire insight into how innate invariance can arise in infant an
 	\textbf{e}, Group-averaged empirical task-activation maps and reconstructions (recon.) obtained using 10, 100 and 200 modes of the seven key HCP task contrasts. 
 	Black arrowheads indicate localized activation patterns that are more accurately reconstructed when using short-wavelength modes. 
 	\textbf{f}, Group-averaged empirical resting-state FC matrices and reconstructions using 10, 100 and 200 modes.
-	} \label{fig:1}
+	} \label{fig:fig_3}
 \end{figure}
 
 We first examine the degree to which geometric eigenmodes can explain diverse aspects of human neocortical activity. 
@@ -602,11 +549,11 @@ This finding holds true regardless of the parcellation used (Extended Data Figs.
 We additionally find that geometric eigenmodes show stronger out-of-sample generalization than principal components of the functional data themselves (calculated via principal component analysis (PCA); Supplementary Fig.\ref{fig:supp_9}, Extended Data Fig.~\ref{fig:extended_fig_4} and Supplementary Information~\ref{sec:comparison_eigenmodes_derived}) and better performance than Fourier spatial basis sets (Extended Data Fig.\ref{fig:extended_fig_5}, Supplementary Information~\ref{sec:comparison_fourier}~and Comparisons with statistical basis sets in Methods~\ref{sec:sets_comparisons}).
 
 % 长波主导神经网络激活
-\subsection{Long wavelengths dominate artificial neural network activity}
+\subsection{Imitation learning of locomotion}
 
 \begin{figure}[!htb]
 	\centering
-	\includegraphics[width=0.9\textwidth]{fig/fig_2.pdf}
+	\includegraphics[width=0.9\textwidth]{fig/fig_4.pdf}
 	\caption{\textbf{Geometric eigenmodes benchmarked against connectome-based eigenmodes.}
 	\textbf{a}, Schematic of the anatomical properties used to derive eigenmodes for cortical geometry, the connectome and the EDR connectome. 
 	Geometric eigenmodes rely on local surface mesh information such as links (blue) between neighbouring surface mesh vertices (dots) and curvature. 
@@ -617,8 +564,13 @@ We additionally find that geometric eigenmodes show stronger out-of-sample gener
 	Despite some similarities, the spatial patterns of the modes are distinct from those derived using cortical geometry (compare with Fig.~\ref{fig:1}a).
 	\textbf{c}, Reconstruction accuracy of resting-state FC matrices achieved by geometric, EDR and two variants of connectome eigenmodes: 
 	one using a connectome as defined using previous methods\cite{naze2021robustness} and the other with the same connection density as the EDR connectome to allow fair comparison (for other densities see Supplementary Figs.~\ref{fig:supp_6}~and~\ref{fig:supp_7}).
-	} \label{fig:2}
+	} \label{fig:fig_4}
 \end{figure}
+
+\subsubsection{Walking}
+
+
+\subsubsection{Running}
 
 
 Reconstructions of both spontaneous and task-evoked data with geometric eigenmodes show that the spatial organization of brain activity is dominated by patterns with spatial wavelengths of about 40 mm or longer (Fig.~\ref{fig:1}d–f). 
@@ -641,14 +593,14 @@ These results indicate that, on temporal and spatial scales accessible with fMRI
 
 
 % 波动力学连接和几何和功能
-\subsection{Wave dynamics bridge geometry and function}
+\subsection{Hierarchical vision-guided walking}
 
 
 \begin{figure}[!htb]
 	\centering
-	\includegraphics[width=0.9\textwidth]{fig/fig_3.pdf}
+	\includegraphics[width=0.9\textwidth]{fig/fig_5.pdf}
 	\caption{
-	} \label{fig:3}
+	} \label{fig:fig_5}
 \end{figure}
 
 
