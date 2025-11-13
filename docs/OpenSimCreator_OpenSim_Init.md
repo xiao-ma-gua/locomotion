@@ -1,4 +1,4 @@
-# OpenSimCreator_OpenSim_Init
+# OpenSimCreator Init
 
 ## 一、软件介绍
 - 核心定位：生物力学建模工具，可可视化构建人体运动模型，适用于研究肌肉发力、关节运动等场景。
