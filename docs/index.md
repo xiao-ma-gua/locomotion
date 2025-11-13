@@ -3,15 +3,15 @@ title: 主页
 # [人的肌肉骨骼运动](https://github.com/OpenHUTB/locomotion)
 
 欢迎使用人的肌肉骨骼运动文档，该页面包含所有内容的索引。
-> 所谓肌肉骨骼运动就是在 OpenSim、Mujoco、Chrono 这 3 个软件里通过复现人骨头和肌肉的配合，来模拟人的运动，这样方便套用到机器人身上。
+> 所谓肌肉骨骼运动就是在 OpenSim、Mujoco、Chrono 这 3 个软件里通过复现人骨骼和肌肉的配合，来模拟人的运动，这样方便套用到机器人身上。
 >
 > 所以来这里就是学习如何使用 Opensim、Mujioco、Chrono，以及肌肉骨骼运动方面的知识的，最终的目标是集成到 [hutb 模拟器](https://github.com/OpenHUTB/hutb) 中。
 
 
-- [人的肌肉骨骼运动](#人的肌肉骨骼运动)
-  - [OpenSim](#opensim)
-  - [Mujoco](#mujoco)
-  - [Chrono](#chrono)
+- [目录](#人的肌肉骨骼运动)
+    - [OpenSim](#opensim)
+    - [Mujoco](#mujoco)
+    - [Chrono](#chrono)
     
 
 ---
