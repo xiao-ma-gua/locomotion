@@ -109,7 +109,7 @@ class EnhancedPedestrianEnv(gym.Env):
         camera_bp = self.blueprint_library.find('sensor.camera.rgb')
         camera_bp.set_attribute('image_size_x', '960')  # 降低分辨率
         camera_bp.set_attribute('image_size_y', '540')
-        camera_bp.set_attribute('fov', '90')
+        camera_bp.set_attribute('fov', '90')  # 水平视野
         return camera_bp
 
     def _configure_lidar(self):
