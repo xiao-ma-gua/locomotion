@@ -41,6 +41,8 @@ title: 主页
 
 [__Chrono 的 OpenSim 解析器__](https://openhutb.github.io/doc/chrono/OpenSim_parser/)
 
+[__基于 Chrono 的肌肉骨骼解析和控制__](./chrono/OpenSim_parser.md)
+
 
 ___
 
