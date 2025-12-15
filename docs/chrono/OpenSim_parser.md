@@ -28,3 +28,13 @@ demo_PARSER_OpenSim.exe  -f  opensim/Rajagopal2015.osim  -r true  -c true
 
 ![](../img/Rajagopal2015.gif)
 
+
+## 增加地面
+
+参考 demo_VEH_RigidTerrain_WheeledVehicle 中的刚体地形来测试人的站立。
+
+
+## 其他
+
+车辆在使用土壤接触模型的可变性地面上拐弯运动 demo_VEH_SCMTerrain_WheeledVehicle。
+
