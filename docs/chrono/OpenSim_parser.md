@@ -33,8 +33,14 @@ demo_PARSER_OpenSim.exe  -f  opensim/Rajagopal2015.osim  -r true  -c true
 
 参考 demo_VEH_RigidTerrain_WheeledVehicle 中的刚体地形来测试人的站立。
 
+刚体地面上的车子示例可以按`WASD`进行控制。
+
+高机动性、多用途、轮式(非履带式)车辆，简称HMMWV(HighMobility Multi-purpose Wheeled Vehicle)，（简称悍马），外文名HMMWV或Humvee。
+
 
 ## 其他
 
 车辆在使用土壤接触模型的可变性地面上拐弯运动 demo_VEH_SCMTerrain_WheeledVehicle。
+
+* [已有示例列表](./demo_list.md)
 
