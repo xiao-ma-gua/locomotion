@@ -161,10 +161,10 @@ class EnhancedPedestrianEnv(gym.Env):
         """生成受控行人（修复括号问题）"""
         for _ in range(3):
             try:
-                spawn_point = carla.Transform(  # 修复此处括号
+                spawn_point = carla.Transform(
                     carla.Location(x=160, y=138, z=1.0),
                     carla.Rotation(yaw=random.randint(0, 360))
-                )  # 补全括号
+                )
                 self.pedestrian = self.world.spawn_actor(
                     random.choice(self.walker_bps),
                     spawn_point
@@ -174,7 +174,7 @@ class EnhancedPedestrianEnv(gym.Env):
                 print(f"行人生成失败: {str(e)}")
                 time.sleep(0.5)
 
-        # 添加AI控制器
+        # 添加 AI 控制器
         self.controller = self.world.spawn_actor(
             self.controller_bp,
             carla.Transform(),
@@ -288,7 +288,9 @@ class EnhancedPedestrianEnv(gym.Env):
 
                 array = np.frombuffer(image.raw_data, dtype=np.uint8)
                 array = array.reshape((image.height, image.width, 4))
-                img_bgr = cv2.cvtColor(array[:, :, :3], cv2.COLOR_RGB2BGR)
+                array = array[:, :, :3]
+                img_rgb = array[:, :, ::-1]
+                img_bgr = cv2.cvtColor(img_rgb, cv2.COLOR_RGB2BGR)
 
                 # 显示基本信息
                 cv2.putText(img_bgr, f"Speed: {self.current_speed:.1f}m/s",
