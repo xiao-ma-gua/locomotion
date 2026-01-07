@@ -203,7 +203,7 @@ class EnhancedPedestrianEnv(gym.Env):
             )
             lidar_sensor.listen(lambda data: self._process_lidar(data))
 
-            # 摄像头（降低帧率）
+            # 摄像头（降低帧率），放在眼睛的位置
             camera_transform = carla.Transform(
                 carla.Location(x=0.8, z=1.7),
                 carla.Rotation(pitch=-10)
@@ -310,7 +310,7 @@ class EnhancedPedestrianEnv(gym.Env):
             current_loc = transform.location
             current_rot = transform.rotation
 
-            # 计算目标方向
+            # 计算目标方向（目标位置 和 当前位置 之间的差别）
             target_vector = self.target_location - current_loc
             target_distance = target_vector.length()
             target_dir = target_vector.make_unit_vector() if target_distance > 0 else carla.Vector3D()
@@ -358,7 +358,7 @@ class EnhancedPedestrianEnv(gym.Env):
                 self.pedestrian.get_location(),
                 carla.Rotation(yaw=target_yaw)))
 
-            # 速度控制
+            # 速度控制（约束到一定范围之类）
             base_speed = 1.5 + 1.5 * speed_ratio
             safe_speed = min(base_speed, 3.0) if self.min_obstacle_distance > 2.0 else 0.8
             self.previous_speed = self.current_speed
@@ -380,6 +380,7 @@ class EnhancedPedestrianEnv(gym.Env):
             speed_reward = min(safe_speed / 3.0, 0.5)
             collision_penalty = 10.0 if self.collision_occurred else 0.0
             time_penalty = 0.05
+            # 奖励：进度 +不超速的奖励 - 事件惩罚 - 发生碰撞则惩罚
             reward = progress * 2.0 + speed_reward - time_penalty - collision_penalty
             self.last_reward = reward
             self.previous_target_distance = current_target_dist

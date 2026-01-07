@@ -4,7 +4,7 @@ numpy==1.24.3
 gymnasium>=1.0.0,<2.0
 opencv-python==4.11.0.86
 stable_baselines3>=2.1.0
-networkx
+networkx==2.5
 PyQt5==5.15.10
 mediapy
 dm_control
