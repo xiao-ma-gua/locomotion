@@ -1,0 +1,172 @@
+\documentclass[lettersize,journal]{IEEEtran}
+\usepackage{amsmath,amsfonts}
+\usepackage{algorithmic}
+\usepackage{orcidlink}
+\usepackage{booktabs}
+\usepackage{algorithm}
+\usepackage{xcolor}
+\usepackage{multirow}
+\usepackage{array}
+\usepackage[caption=false,font=normalsize,labelfont=sf,textfont=sf]{subfig}
+\usepackage{textcomp}
+\usepackage{stfloats}
+\usepackage{url}
+\usepackage{verbatim}
+\usepackage{graphicx}
+\usepackage{gensymb}
+\usepackage{cite}
+\renewcommand{\textcolor}[2]{#2}
+\hyphenation{op-tical net-works semi-conduc-tor IEEE-Xplore}
+% updated with editorial comments 8/9/2021
+
+\begin{document}
+
+\title{UTDT: A Baseline Benchmark for Urban Traffic \\ Flow Digital Twins via Roadside \\ LiDAR-Camera Fusion}
+
+\author{\hypersetup{
+		colorlinks=false,
+		pdfborder={0 0 0}
+	}Haidong~Wang\raisebox{0.8ex}{\orcidlink{0000-0002-4614-5817}},~Pengfei~Xiao\raisebox{0.8ex}{\orcidlink{0009-0003-6278-463X}},Ao~Liu\raisebox{0.8ex}{\orcidlink{0009-0006-9153-4295}}, Jianhua~Zhang\raisebox{0.8ex}{\orcidlink{0009-0009-9097-8523}},~and Qia~Shan\raisebox{0.8ex}{\orcidlink{0009-0004-0279-7807}}
+        % <-this % stops a space
+
+\thanks{Haidong Wang is with Hunan University of Technology and Business, Changsha 410082, China, and Xiangjiang Laboratory; Pengfei Xiao, Ao Liu, Jianhua Zhang and Qia Shan are with Hunan University Of Technology and Business, Changsha 410082, China (e-mail: whd@hutb.edu.cn; 2893666867@qq.com; 2496556459@qq.com; zhangjianhua6682@126.com; s540534349@163.com).(\textit{Corresponding author: Haidong Wang.})
+}}
+%\thanks{H. Wang is with Hunan University of Technology and Business, Changsha 410082, China, and %Xiangjiang Laboratory; P. Xiao, A. Liu, J. Zhang and Q. Shan are with Hunan University Of Technology %and Business, Changsha 410082, China (e-mail: whd@hutb.edu.cn; 2893666867@qq.com; 2496556459@qq.com; %zhangjianhua6682@126.com; s540534349@163.com).
+	
+% <-this % stops a space
+ %\thanks{Manuscript received April 19, 2021; revised August 16, 2021.}}
+
+% The paper headers
+\markboth{Journal of \LaTeX\ Class Files,~Vol.~14, No.~8, August~2021}%
+{Shell \MakeLowercase{\textit{et al.}}: A Sample Article Using IEEEtran.cls for IEEE Journals}
+
+%\IEEEpubid{0000--0000/00\$00.00~\copyright~2021 IEEE}
+% Remember, if you use this you must call \IEEEpubidadjcol in the second
+% column for its text to clear the IEEEpubid mark.
+
+\maketitle
+
+\begin{abstract}
+\begingroup
+\hypersetup{pdfborder={0 0 0}}The source code and datasets are available at \url
+{https://github.com/OpenHUTB/traffic\_twin}.
+\endgroup
+\end{abstract}
+
+\begin{IEEEkeywords}
+
+\end{IEEEkeywords}
+
+\section{Introduction}
+\IEEEPARstart{W}{ith} 
+\begin{figure}[!t]
+	% \centerline{\includegraphics[width=\columnwidth]{picture/picture1.eps}}
+	\caption{}
+	\label{fig:1}
+\end{figure}
+
+\section{Related Work}
+\textbf{Brain-inspired Actor-Critic learning framework.}
+Research in biological neuroscience indicates that the learning mechanism of the basal ganglia in mammals has a high degree of correspondence with the Actor-Critic architecture in reinforcement learning.
+The phasic activity of midbrain dopamine neurons encodes the reward prediction error, which is mathematically equivalent to the temporal difference (TD) error in reinforcement learning.
+This biological signal regulates the plasticity of cortico-striatal synapses, where the dorsal striatum responsible for action selection corresponds to "Actor" and the ventral striatum responsible for value assessment corresponds to "Critic".
+Inspired by this, recent research has focused on introducing reinforcement learning into pulse neural networks (SNNs) to achieve efficient robot control in high-dimensional continuous spaces.
+For example, Tang et al. proposed a pulse Actor network based on population coding (PopSAN), which, through joint training with a deep Critic network, significantly reduces the energy consumption of the controller while maintaining continuous control accuracy, and successfully deployed it in multi-degree-of-freedom robot control tasks \cite{tang2021deep}.
+Additionally, Zhang et al. proposed a multi-scale dynamic coding improved pulse Actor network (MDC-SAN) by simulating the complex dynamic coding and simple readout mechanisms in the biological brain, further verifying the superiority of the brain-like spatiotemporal computing in reinforcement learning decision-making \cite{zhang2022multi}.
+These works demonstrate that the brain-like AC framework integrating dopaminergic regulatory mechanisms and pulse computing shows great potential in solving complex robot dynamics control and improving algorithm energy efficiency.
+
+
+\textbf{Brain-inspired mobile control network structure.}
+The complex movement control of vertebrates is highly dependent on the multi-layered neural circuits of the central nervous system, especially the central pattern generator (CPG) in the spinal cord and the synergy with the sensory reflex pathways.
+The spinal cord CPG circuit can spontaneously generate coordinated movement rhythms for multiple or bipedal locomotion without the input of rhythmic signals from higher brain regions;while the proprioceptive reflexes (such as the stretch reflex) achieve rapid responses to external disturbances by directly regulating the activity of motor neurons. 
+Current research on foot-based and humanoid robots widely draw on this hierarchical mechanism, by combining the intrinsic rhythmicity of the CPG with reinforcement learning to address the mobility challenges in unstructured terrains. 
+Bellegarda and Ijspeert proposed a CPG-RL framework, where the CPG is directly incorporated as a part of the Actor network, using deep reinforcement learning to adaptively adjust the intrinsic amplitude and frequency of the oscillator, successfully achieving omnidirectional robust movement of the robot \cite{bellegarda2022cpg}. 
+On this basis, they further expanded the Visual CPG-RL system, enabling the robot to combine visual feedback with CPG rhythms to generate adaptive gaits in complex terrains \cite{bellegarda2024visual}. 
+For the dynamic balance problem in complex environments, the latest research explores a multi-level control framework that seamlessly integrates the posture reflex mechanism with neural networks. 
+This architecture inspired by spinal cord neural dynamics (such as the RLOC control framework) not only can rapidly correct the robot's foot trajectory using local proprioceptive data, but also dynamically optimizes motion parameters through the upper-level reinforcement learning strategy, thereby significantly improving the robot's motion robustness on uneven terrains while maintaining the sample efficiency of the algorithm \cite{gangapurwala2022rloc}. 
+
+\section{Method}
+To achieve robust and adaptive locomotion for humanoid robots in complex environments, this paper proposes a hierarchical motor control framework inspired by the biological Central Nervous System (CNS). 
+As illustrated in the overall system architecture in Fig. 1, the proposed framework seamlessly integrates a "brain-like" reinforcement learning mechanism with a "spinal-like" low-level locomotion control network. 
+Specifically, the high-level module (the Brain) models the dopamine-modulated learning mechanism of the mammalian basal ganglia, constructing a biologically plausible Actor-Critic architecture. 
+This module processes high-dimensional proprioceptive and environmental states to output continuous top-down modulatory signals. 
+The low-level module (the Spinal Cord) consists of Central Pattern Generators (CPGs) and proprioceptive reflex loops, which are responsible for translating these high-level commands into coordinated rhythmic joint/muscle activations. 
+During locomotion, the "Brain" dynamically modulates the intrinsic parameters of the CPGs to achieve specific task goals, while the "Spinal Cord" utilizes local closed-loop mechanisms, such as stretch reflexes, to provide millisecond-level bottom-up posture compensation against external disturbances. 
+Through the synergy of top-down cognitive learning and bottom-up reflex execution, our system effectively drives the robot to learn and exhibit highly robust continuous walking gaits.
+
+\subsection{Problem Definition}
+
+\subsection{Brain-Inspired Locomotion Control Network.}
+
+\textbf{Central Pattern Generator.}
+
+\textbf{Proprioception and Reflex Cycles.}
+
+\textbf{Integrated Output.}
+
+\subsection{Biologically Plausible Actor-Critic Learning.}
+
+\textbf{Neuroregulatory Mechanism.}
+
+\textbf{Actor Network.}
+
+\textbf{Critic Network.}
+
+\subsection{Task Formulation and State-Action Space.}
+
+\textbf{State Space.}
+
+\textbf{Action Space.}
+
+\subsection{Reward Function Design.}
+
+\textbf{Task Reward.}
+
+\textbf{Survival Reward.}
+
+\textbf{Energy Penalty.}
+
+\textbf{Posture Penalty.}
+
+
+
+\section{Experiments}
+
+\subsection{Experimental Setup and Tasks.}
+\textbf{Simulation Platform.}
+
+\textbf{Test Tasks.}
+
+\textbf{Evaluation Metrics.}
+
+\subsection{Baseline Algorithms.}
+\textbf{Classic reinforcement learning algorithms.}
+
+\textbf{Comparison Explanation.}
+
+\subsection{Learning Efficiency and Performance.}
+\textbf{Training Curve.}
+
+\textbf{Performance Summary Table.}
+
+\subsection{Ablation Studies.}
+\textbf{Variant 1(without Brain-inspired AC).}
+
+\textbf{Variant 2(without CPG and Reflex).}
+
+\subsection{Biomechanical and Gait Analysis.}
+\textbf{Gait Cycle Analysis.}
+
+\textbf{Muscle Activation.}
+
+
+
+\end{document}
+
+
+
+
+
+
+
+
