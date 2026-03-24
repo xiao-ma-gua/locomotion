@@ -19,6 +19,7 @@ jobs:
       - name: Compile LaTeX document
         uses: xu-cheng/latex-action@v3
         with:
+          working_directory: human/IEEE
           root_file: human.tex   # 指定你的主文件名为 human.tex
           texlive_version: 2025       # 保持你参考的 TeX Live 版本
           latexmk_use_xelatex: true   # 保持使用 XeLaTeX 引擎，它对复杂字符和宏包的兼容性很好
