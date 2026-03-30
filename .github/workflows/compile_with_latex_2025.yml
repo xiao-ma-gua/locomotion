@@ -26,13 +26,13 @@ jobs:
           compiler: latexmk     
           args: -interaction=nonstopmode -file-line-error # 遇到小错误时不卡住等待输入，直接输出错误信息
 
-      # 第三步：将生成的 PDF 作为云端附件存档
-      # 注意：这不会把 PDF 提交到你的代码仓库中
-      # 而是把它挂载在这次 Action 运行记录的网页上，方便你随时点击下载和预览编译效果。
-      - name: Upload PDF as artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: compiled-human-paper
-          path: human/IEEE/human.pdf
+      # # 第三步：将生成的 PDF 作为云端附件存档
+      # # 注意：这不会把 PDF 提交到你的代码仓库中
+      # # 而是把它挂载在这次 Action 运行记录的网页上，方便你随时点击下载和预览编译效果。
+      # - name: Upload PDF as artifact
+      #   uses: actions/upload-artifact@v4
+      #   with:
+      #     name: compiled-human-paper
+      #     path: human/IEEE/human.pdf
 
 
