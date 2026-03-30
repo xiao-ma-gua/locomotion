@@ -59,6 +59,11 @@
 
 \section{Introduction}
 \IEEEPARstart{W}{ith} 
+In recent years, deep reinforcement learning (DRL) has demonstrated remarkable success in solving complex locomotion tasks for legged and humanoid robots. 
+However, achieving energy-efficient, highly robust, and biologically plausible continuous walking gaits in unstructured environments remains a significant challenge. 
+To address these biomechanical and control bottlenecks, researchers have increasingly drawn inspiration from the hierarchical mechanisms of the biological Central Nervous System (CNS). 
+The existing literature closely related to our study can be broadly categorized into two main streams: (1) high-level brain-inspired learning frameworks, particularly those simulating the Actor-Critic mechanisms of the basal ganglia, and (2) low-level spinal-like control strategies, focusing on Central Pattern Generators (CPGs) and proprioceptive reflexes. 
+While substantial progress has been made in both domains independently, integrating top-down neuromodulation with bottom-up instantaneous reflexes within a unified architecture is still under-explored. 
 \begin{figure}[!t]
 	% \centerline{\includegraphics[width=\columnwidth]{picture/picture1.eps}}
 	\caption{}
@@ -66,14 +71,8 @@
 \end{figure}
 
 \section{Related Work}
-In recent years, deep reinforcement learning (DRL) has demonstrated remarkable success in solving complex locomotion tasks for legged and humanoid robots. 
-However, achieving energy-efficient, highly robust, and biologically plausible continuous walking gaits in unstructured environments remains a significant challenge. 
-To address these biomechanical and control bottlenecks, researchers have increasingly drawn inspiration from the hierarchical mechanisms of the biological Central Nervous System (CNS). 
-The existing literature closely related to our study can be broadly categorized into two main streams: (1) high-level brain-inspired learning frameworks, particularly those simulating the Actor-Critic mechanisms of the basal ganglia, and (2) low-level spinal-like control strategies, focusing on Central Pattern Generators (CPGs) and proprioceptive reflexes. 
-While substantial progress has been made in both domains independently, integrating top-down neuromodulation with bottom-up instantaneous reflexes within a unified architecture is still under-explored. 
-In this section, we briefly review the relevant advancements and limitations in these two areas.
-
-\textbf{Brain-inspired Actor-Critic learning framework.}
+We have summarized research work on different aspects of.
+\textbf{Actor-Critic Learning Framework.}
 Research in biological neuroscience indicates that the learning mechanism of the basal ganglia in mammals has a high degree of correspondence with the Actor-Critic architecture in reinforcement learning.
 The phasic activity of midbrain dopamine neurons encodes the reward prediction error, which is mathematically equivalent to the temporal difference (TD) error in reinforcement learning.
 This biological signal regulates the plasticity of cortico-striatal synapses, where the dorsal striatum responsible for action selection corresponds to "Actor" and the ventral striatum responsible for value assessment corresponds to "Critic".
@@ -85,7 +84,7 @@ However, most of these existing brain-inspired RL frameworks still rely on an en
 To bridge this gap, the first key innovation of our work is the proposal of a hierarchical motor control framework that seamlessly integrates this "brain-like" Actor-Critic learning with a "spinal-like" low-level Central Pattern Generator (CPG) network. 
 Unlike direct joint control, our dorsal striatum (Actor) outputs continuous top-down modulatory signals to dynamically adjust the intrinsic parameters of the spinal CPGs, which significantly truncates the unconstrained exploration space and improves the sample efficiency of the algorithm.
 
-\textbf{Brain-inspired mobile control network structure.}
+\textbf{Locomotion Control Network Structure.}
 The complex movement control of vertebrates is highly dependent on the multi-layered neural circuits of the central nervous system, especially the central pattern generator (CPG) in the spinal cord and the synergy with the sensory reflex pathways.
 The spinal cord CPG circuit can spontaneously generate coordinated movement rhythms for multiple or bipedal locomotion without the input of rhythmic signals from higher brain regions;while the proprioceptive reflexes (such as the stretch reflex) achieve rapid responses to external disturbances by directly regulating the activity of motor neurons. 
 Current research on foot-based and humanoid robots widely draw on this hierarchical mechanism, by combining the intrinsic rhythmicity of the CPG with reinforcement learning to address the mobility challenges in unstructured terrains. 
