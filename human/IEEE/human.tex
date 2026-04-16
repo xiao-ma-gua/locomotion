@@ -143,10 +143,18 @@ The motor cortex plays a pivotal role in the planning, selection, and execution 
 Unlike fixed-delay reflexes, voluntary movements governed by the motor cortex are purposeful, context-dependent, and involve the transformation of multi-modal sensory information into precise motor commands. 
 The motor assistance area can be divided into three main regions within the motor cortex, namely the primary motor cortex, the premotor area, and the motor assistance area.
 
-\paragraph{Primary Motor Cortex (M1)} The primary motor cortex is the most significant part of the motor cortex in the human cerebral cortex, located in the precentral gyrus. 
+\paragraph{Primary Motor Cortex} The primary motor cortex (M1) is the most significant part of the motor cortex in the human cerebral cortex, located in the precentral gyrus. 
 It is also the most crucial component of the motor system, working in coordination with other brain motor regions to control human movements.
-In the context of locomotion, M1 provides precise control over muscle activity patterns. 
+In the context of a brain-inspired hierarchical motion control framework, M1 functions analogously to the low-level Actor network in an Actor-Critic architecture.
 Rather than operating as an isolated controller, M1 integrates descending motor signals into the ongoing rhythmic activity of the spinal cord's central pattern generators (CPGs), allowing for the fine-tuning of gait in response to environmental demands.
+In advanced reinforcement learning algorithms, such as Truncated Quantile Critics (TQC), this is akin to a low-level continuous control policy outputting residual actions that fine-tune a base rhythmic prior, allowing for the precise, adaptive execution of musculoskeletal joint patterns in response to environmental demands.
+
+\paragraph{Premotor Cortex} The premotor cortex (PMC), located anterior to the primary motor cortex, is responsible for various aspects of motor control, including motor preparation, spatial orientation, sensory guidance, and the regulation of proximal and trunk muscles. 
+From a machine learning perspective, the PMC acts as the system's exteroceptive perception module and feature encoder.
+It is crucial for planning movements guided by external sensory cues, particularly visual information. 
+For instance, it significantly contributes to visually guided gait adjustments, such as planning to step over obstacles. 
+A fundamental function of this area is sensorimotor transformation—converting global visual signals about an obstacle's location into the specific muscle signals required for precise limb placement.
+This process closely mirrors how a vision-based neural network backbone, such as a CNN or Vision Transformer ,maps high-dimensional environmental states into actionable lower-dimensional signals for a downstream planning algorithm.
 
 \paragraph{Premotor Cortex} The premotor cortex (PMC), located anterior to the primary motor cortex, is responsible for various aspects of motor control, including motor preparation, spatial orientation, sensory guidance, and the regulation of proximal and trunk muscles. 
 It is crucial for planning movements guided by external sensory cues, particularly visual information. 
