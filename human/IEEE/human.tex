@@ -169,6 +169,14 @@ Through these pathways, the SMA facilitates the selection of appropriate motor p
 The spinal cord is not merely a passive transmission cable for descending neural drive; it is a sophisticated autonomous controller capable of generating organized motor outputs. 
 In our hierarchical framework, the spinal cord is modeled as a low-level execution layer consisting of Central Pattern Generators (CPGs) and proprioceptive reflex loops.
 
+\textbf{Midbrain and Descending Modulation}
+Although the motor cortex generate high-level movement intentions and adaptive policies, these cognitive commands do not interact with the spinal cord in isolation.
+In the biological central nervous system, supraspinal structure particularly the midbrain locomotor region (MLR) and the brainstem reticular formatio serve as indispensable intermediary hubs. 
+Excitatory signals from the MLR are relayed indirectly to the spinal cord via neurons in the brainstem reticular formation, providing the final command signals to the spinal locomotor networks. 
+These descending pathways are essential for initiating locomotion, regulating stepping speed, and maintaining posture. 
+In our hierarchical computational framework, this neurobiological translation mechanism acts analogously to the output projection layer or decoder module of the Actor network. 
+The top-down modulatory commands representing the continuous action vector output by the policy functionally emulate this descending brainstem drive. 
+Rather than outputting raw joint torques, the network operates as a high-level manager policy within a Hierarchical Reinforcement Learning (HRL) paradigm, dynamically updating the intrinsic parameters of the underlying spinal CPGs. 
 
 \subsection{Locomotion Control Network.}
 \textbf{Central Pattern Generator.}
