@@ -24,6 +24,7 @@ jobs:
         conda install -y python=3.10 pip ipython cudatoolkit=11.8.0
         python -m pip install --upgrade pip
         pip install pytest
+        pip install mujoco==3.3.0
         pip install .[tf]
     - name: Test with pytest
       run: |
