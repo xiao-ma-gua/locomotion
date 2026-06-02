@@ -63,3 +63,4 @@ namespaces = false
 
 [tool.setuptools.package-data]
 flybody = ["fruitfly/assets/*.obj", "fruitfly/assets/*.xml"]
+
