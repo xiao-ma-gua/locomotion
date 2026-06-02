@@ -1,6 +1,10 @@
 ### 一、`myo_train_walk_manager.py` 脚本核心运行模式与命令
 
+<<<<<<< HEAD
 这个脚本设计了两种主要的工作流：**从头训练和加载微调**。
+=======
+这个脚本设计了两种主要的工作流：**从头训练和用以训练好的模型进行训练**。
+>>>>>>> 64772761e212ec1038428d9a5cd76edf6a6550f1
 
 #### 1. 从头开始训练
 
@@ -27,9 +31,13 @@ python myo_train_walk_manager.py \
     --seed 1024
 ```
 
+<<<<<<< HEAD
 #### 2. 模型微调
 
 当你的基础模型收敛后，你想调整学习率继续压榨模型性能时，使用此模式。
+=======
+#### 2. 通过已收敛的模型和环境来运行更复杂的任务
+>>>>>>> 64772761e212ec1038428d9a5cd76edf6a6550f1
 
 **注意：** 你**必须**同时提供 `.zip` 模型文件和对应的 `.pkl` 归一化文件。
 
@@ -53,13 +61,21 @@ python myo_train_walk_manager.py \
     --finetune \
     --pretrained_model_path ./policy/myowalk_tqc.zip \
     --pretrained_vec_path ./policy/myowalk_tqc.pkl \
+<<<<<<< HEAD
     --ft_learning_rate 5e-5 \
     --ft_ent_coef "auto_0.01" \
+=======
+    --ft_learning_rate 5e-5 
+>>>>>>> 64772761e212ec1038428d9a5cd76edf6a6550f1
 ```
 
 ### 二、 训练过程监控
 
+<<<<<<< HEAD
 你的脚本已经配置了 TensorBoard 日志，只要脚本开始运行并产生了数据，你就可以新建一个终端，在脚本同级目录下运行：
+=======
+你的脚本已经配置了 `TensorBoard` 日志，只要脚本开始运行并产生了数据，你就可以新建一个终端，在脚本同级目录下运行：
+>>>>>>> 64772761e212ec1038428d9a5cd76edf6a6550f1
 
 ```sh
 tensorboard --logdir ./logs/logs_comparison/tensorboard/ 
@@ -69,3 +85,32 @@ tensorboard --logdir ./logs/logs_comparison/tensorboard/
 
 
 
+<<<<<<< HEAD
+=======
+### 三、`myo_test_walk_manager.py` 脚本核心运行模式与命令
+
+`--algo`表示所使用的算法
+`--env`表示所使用的环境
+`--seed`表示所使用的种子
+
+以上三点均与训练呼应，以好做区分
+
+`--episodes`表示测试的局数
+`--max_steps`表示每一局最多能走多少步
+`--save_video`表示是否将测试过程保存为 `mp4 `视频
+
+`--finetune`表示是否测试的是生成更复杂的模型
+
+例如：
+
+```sh
+python myo_test_walk_manager.py \
+--algo TQC \
+--env myoLegStairTerrainWalk-v0 \
+--save_video \
+--episodes 1 \
+--seed 1 \
+--max_steps 1000 \
+--finetune
+```
+>>>>>>> 64772761e212ec1038428d9a5cd76edf6a6550f1
