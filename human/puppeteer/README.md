@@ -1,10 +1,6 @@
 ### 一、`myo_train_walk_manager.py` 脚本核心运行模式与命令
 
-<<<<<<< HEAD
-这个脚本设计了两种主要的工作流：**从头训练和加载微调**。
-=======
 这个脚本设计了两种主要的工作流：**从头训练和用以训练好的模型进行训练**。
->>>>>>> 64772761e212ec1038428d9a5cd76edf6a6550f1
 
 #### 1. 从头开始训练
 
@@ -14,7 +10,7 @@
 
 指定环境(`--env`)，环境在该[网址](https://myosuite.readthedocs.io/en/latest/suite.html)的最下方自行选择
 
-指定cpu核数(`--num_cpu`)，核数根据自己硬件做决定
+指定`cpu`核数(`--num_cpu`)，核数根据自己硬件做决定
 
 指定运行步数(`--total_timesteps`)
 
@@ -31,14 +27,7 @@ python myo_train_walk_manager.py \
     --seed 1024
 ```
 
-<<<<<<< HEAD
-#### 2. 模型微调
-
-当你的基础模型收敛后，你想调整学习率继续压榨模型性能时，使用此模式。
-=======
 #### 2. 通过已收敛的模型和环境来运行更复杂的任务
->>>>>>> 64772761e212ec1038428d9a5cd76edf6a6550f1
-
 **注意：** 你**必须**同时提供 `.zip` 模型文件和对应的 `.pkl` 归一化文件。
 
 其中：
@@ -61,21 +50,12 @@ python myo_train_walk_manager.py \
     --finetune \
     --pretrained_model_path ./policy/myowalk_tqc.zip \
     --pretrained_vec_path ./policy/myowalk_tqc.pkl \
-<<<<<<< HEAD
-    --ft_learning_rate 5e-5 \
-    --ft_ent_coef "auto_0.01" \
-=======
     --ft_learning_rate 5e-5 
->>>>>>> 64772761e212ec1038428d9a5cd76edf6a6550f1
 ```
 
 ### 二、 训练过程监控
 
-<<<<<<< HEAD
-你的脚本已经配置了 TensorBoard 日志，只要脚本开始运行并产生了数据，你就可以新建一个终端，在脚本同级目录下运行：
-=======
 你的脚本已经配置了 `TensorBoard` 日志，只要脚本开始运行并产生了数据，你就可以新建一个终端，在脚本同级目录下运行：
->>>>>>> 64772761e212ec1038428d9a5cd76edf6a6550f1
 
 ```sh
 tensorboard --logdir ./logs/logs_comparison/tensorboard/ 
@@ -83,10 +63,6 @@ tensorboard --logdir ./logs/logs_comparison/tensorboard/
 
 随后就会终端就会出现一个网址，点进去就能看到日志所对应的图像
 
-
-
-<<<<<<< HEAD
-=======
 ### 三、`myo_test_walk_manager.py` 脚本核心运行模式与命令
 
 `--algo`表示所使用的算法
@@ -113,4 +89,3 @@ python myo_test_walk_manager.py \
 --max_steps 1000 \
 --finetune
 ```
->>>>>>> 64772761e212ec1038428d9a5cd76edf6a6550f1
